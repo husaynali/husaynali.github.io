@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Husayn Ali - Data Analyst & BI Engineer Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Retro Pixel & Monospace Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom Pixel & Neubrutalism Design Tokens */
+        :root {
+            --win-bg: #c0c0c0;
+            --win-blue: #000080;
+            --win-blue-light: #1084d0;
+            --win-border-light: #ffffff;
+            --win-border-dark: #808080;
+            --win-border-darkest: #000000;
+            --pixel-font: 'Press Start 2P', monospace;
+            --retro-font: 'VT323', monospace;
+            --mono-font: 'Share Tech Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            touch-action: manipulation;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: var(--retro-font);
+            font-size: clamp(1rem, 4vw, 1.3rem);
+            background: #008080; /* Classic Win95 Teal */
+            background-image: 
+                linear-gradient(rgba(0, 128, 128, 0.85), rgba(0, 128, 128, 0.85)),
+                radial-gradient(#ffffff 15%, transparent 16%),
+                radial-gradient(#ffffff 15%, transparent 16%);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            background-position: 0 0, 0 0, 20px 20px;
+            color: #000000;
+            min-height: 100vh;
+        }
+
+        /* Neubrutalist / Win95 Box Shadows and Borders */
+        .win-box {
+            background-color: var(--win-bg);
+            border-top: 3px solid var(--win-border-light);
+            border-left: 3px solid var(--win-border-light);
+            border-right: 3px solid var(--win-border-darkest);
+            border-bottom: 3px solid var(--win-border-darkest);
+            box-shadow: inset -1px -1px var(--win-border-dark), inset 1px 1px var(--win-border-light);
+        }
+
+        .win-box-inset {
+            background-color: #ffffff;
+            border-top: 2px solid var(--win-border-darkest);
+            border-left: 2px solid var(--win-border-darkest);
+            border-right: 2px solid var(--win-border-light);
+            border-bottom: 2px solid var(--win-border-light);
+            box-shadow: inset 1px 1px var(--win-border-dark);
+        }
+
+        /* Touch-friendly 44px minimum target buttons */
+        .win-button {
+            background-color: var(--win-bg);
+            border-top: 2px solid var(--win-border-light);
+            border-left: 2px solid var(--win-border-light);
+            border-right: 2px solid var(--win-border-darkest);
+            border-bottom: 2px solid var(--win-border-darkest);
+            font-family: var(--pixel-font);
+            font-size: clamp(0.6rem, 2.5vw, 0.75rem);
+            cursor: pointer;
+            user-select: none;
+            min-height: 40px;
+            min-width: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.05s ease;
+            touch-action: manipulation;
+        }
+
+        .win-button:active, .win-button:focus-within {
+            border-top: 2px solid var(--win-border-darkest);
+            border-left: 2px solid var(--win-border-darkest);
+            border-right: 2px solid var(--win-border-light);
+            border-bottom: 2px solid var(--win-border-light);
+            padding-top: 2px;
+            padding-left: 2px;
+        }
+
+        .pixel-text {
+            font-family: var(--pixel-font);
+        }
+
+        .title-bar {
+            background: linear-gradient(90deg, var(--win-blue) 0%, var(--win-blue-light) 100%);
+            color: white;
+            padding: 6px 8px;
+            font-family: var(--pixel-font);
+            font-size: clamp(0.65rem, 2.8vw, 0.8rem);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+            background: var(--win-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--win-bg);
+            border-top: 2px solid var(--win-border-light);
+            border-left: 2px solid var(--win-border-light);
+            border-right: 2px solid var(--win-border-darkest);
+            border-bottom: 2px solid var(--win-border-darkest);
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border: 1px solid var(--win-border-dark);
+        }
+
+        /* Scanline Overlay for Vintage CRT feel */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.05) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 9999;
+            opacity: 0.5;
+        }
+
+        .badge-blink {
+            animation: blinker 1.5s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
+        .skill-card {
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            touch-action: manipulation;
+        }
+        .skill-card:active {
+            transform: scale(0.97);
+        }
+
+        @media (max-width: 640px) {
+            .mobile-stack {
+                flex-direction: column !important;
+            }
+            .mobile-full {
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body class="p-1 sm:p-3 md:p-6 pb-24">
+
+    <div class="scanlines"></div>
+
+    <!-- MAIN WINDOW CONTAINER -->
+    <div id="main-window" class="win-box w-full max-w-6xl mx-auto my-1 sm:my-4 transition-all duration-300 relative">
+        
+        <!-- WINDOW TITLE BAR -->
+        <div class="title-bar select-none">
+            <div class="flex items-center gap-2 truncate pr-2">
+                <svg class="w-4 h-4 flex-shrink-0 fill-current text-yellow-300" viewBox="0 0 24 24">
+                    <path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/>
+                </svg>
+                <span class="truncate tracking-wide">MY RESUME - [Husayn_Ali.exe]</span>
+            </div>
+            
+            <!-- Touch-friendly Window Action Buttons -->
+            <div class="flex items-center gap-1 flex-shrink-0">
+                <button onclick="playRetroSound('click'); toggleMinimize()" class="win-button w-8 h-8 px-1 py-0 font-bold text-black bg-gray-300 hover:bg-gray-200" title="Minimize">_</button>
+                <button onclick="playRetroSound('click'); toggleMaximize()" class="win-button w-8 h-8 px-1 py-0 font-bold text-black bg-gray-300 hover:bg-gray-200 hidden sm:inline-flex" title="Maximize">🗖</button>
+                <button onclick="playRetroSound('click'); showNotification('System Alert', 'You cannot exit Husayn\'s Portfolio! Feel free to contact him instead.')" class="win-button w-8 h-8 px-1 py-0 font-bold text-white bg-red-600 hover:bg-red-700" title="Close">✕</button>
+            </div>
+        </div>
+
+        <!-- MOBILE-FRIENDLY NAV BAR -->
+        <div class="bg-gray-200 border-b-2 border-gray-400 px-2 py-1.5 flex flex-wrap items-center gap-1.5 sm:gap-3 text-xs sm:text-sm font-semibold select-none border-t border-white">
+            <button onclick="scrollToSection('about-section')" class="win-button px-2 py-1 hover:bg-blue-900 hover:text-white"><u>F</u>ile</button>
+            <button onclick="scrollToSection('skills-section')" class="win-button px-2 py-1 hover:bg-blue-900 hover:text-white"><u>S</u>kills</button>
+            <button onclick="scrollToSection('timeline-section')" class="win-button px-2 py-1 hover:bg-blue-900 hover:text-white"><u>E</u>xperience</button>
+            <button onclick="scrollToSection('projects-section')" class="win-button px-2 py-1 hover:bg-blue-900 hover:text-white"><u>P</u>rojects</button>
+            <button onclick="toggleSound()" id="sound-btn" class="win-button px-2 py-1 ml-auto text-xs flex items-center gap-1">
+                <i class="fas fa-volume-up"></i> <span id="sound-status" class="text-green-700 font-bold">ON</span>
+            </button>
+        </div>
+
+        <!-- MAIN WINDOW CONTENT BODY -->
+        <div id="window-body" class="p-2 sm:p-4 md:p-6 space-y-4 sm:space-y-6">
+
+            <!-- TOP SECTION: FLEX RESPONSIVE GRID -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+                
+                <!-- LEFT SIDEBAR: SOCIALS, LANGUAGES, LIKINGS (Lg: 4 Cols) -->
+                <div class="lg:col-span-4 space-y-4 sm:space-y-6 order-2 lg:order-1">
+                    
+                    <!-- INNER WINDOW: SOCIAL & QUICK CONTACT -->
+                    <div class="win-box p-3">
+                        <div class="title-bar mb-3 text-xs">
+                            <span><i class="fas fa-network-wired mr-1"></i> CONNECT.INI</span>
+                            <span class="text-yellow-300">v2.0</span>
+                        </div>
+                        <ul class="space-y-2 text-sm sm:text-base font-bold">
+                            <li class="flex items-center justify-between p-2 bg-white border border-gray-400 rounded-none">
+                                <span class="flex items-center gap-1.5"><i class="fab fa-github text-lg text-black"></i> GitHub:</span>
+                                <a href="https://github.com/husaynali" target="_blank" rel="noopener" class="text-blue-700 hover:underline font-mono">@husaynali</a>
+                            </li>
+                            <li class="flex items-center justify-between p-2 bg-white border border-gray-400">
+                                <span class="flex items-center gap-1.5"><i class="fab fa-linkedin text-lg text-blue-600"></i> LinkedIn:</span>
+                                <span class="text-gray-500 italic text-xs">(Coming Soon)</span>
+                            </li>
+                            <li class="flex items-center justify-between p-2 bg-white border border-gray-400">
+                                <span class="flex items-center gap-1.5"><i class="fas fa-user-tag text-lg text-green-700"></i> Pronouns:</span>
+                                <span class="text-black font-mono">he/him</span>
+                            </li>
+                            <li class="flex items-center justify-between p-2 bg-white border border-gray-400">
+                                <span class="flex items-center gap-1.5"><i class="fas fa-map-marker-alt text-lg text-red-600"></i> Location:</span>
+                                <span class="text-black font-mono">Cairo, Egypt</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- LANGUAGES BOX -->
+                    <div class="win-box p-3">
+                        <div class="pixel-text text-xs sm:text-sm font-bold border-b-2 border-gray-400 pb-1 mb-3 text-blue-900 flex justify-between">
+                            <span>LANGUAGES</span>
+                            <i class="fas fa-language text-base"></i>
+                        </div>
+                        <div class="space-y-3 font-sans text-xs sm:text-sm">
+                            <div>
+                                <div class="flex justify-between font-bold mb-1">
+                                    <span>English</span>
+                                    <span>Fluent (5/5)</span>
+                                </div>
+                                <div class="win-box-inset h-4 w-full p-0.5">
+                                    <div class="bg-blue-800 h-full w-full"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between font-bold mb-1">
+                                    <span>Arabic</span>
+                                    <span>Native (100%)</span>
+                                </div>
+                                <div class="win-box-inset h-4 w-full p-0.5">
+                                    <div class="bg-green-700 h-full w-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LIKINGS / INTERESTS BOX -->
+                    <div class="win-box p-3">
+                        <div class="pixel-text text-xs sm:text-sm font-bold border-b-2 border-gray-400 pb-1 mb-3 text-blue-900 flex justify-between">
+                            <span>LIKINGS</span>
+                            <i class="fas fa-heart text-red-600"></i>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-xs sm:text-sm font-bold">
+                            <div class="win-box-inset p-2 flex items-center justify-center gap-1.5">
+                                <span class="text-base">♫</span> Music
+                            </div>
+                            <div class="win-box-inset p-2 flex items-center justify-center gap-1.5">
+                                <span class="text-base">#</span> Coding
+                            </div>
+                            <div class="win-box-inset p-2 flex items-center justify-center gap-1.5">
+                                <span class="text-base">👾</span> Gaming
+                            </div>
+                            <div class="win-box-inset p-2 flex items-center justify-center gap-1.5">
+                                <span class="text-base">📊</span> Analytics
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT MAIN HERO: INNER WINDOW "WWW.ABOUT.ME" (Lg: 8 Cols) -->
+                <div id="about-section" class="lg:col-span-8 space-y-4 sm:space-y-6 order-1 lg:order-2">
+                    
+                    <div class="win-box p-1">
+                        <!-- INNER WINDOW TITLE BAR -->
+                        <div class="title-bar bg-blue-900 text-white p-2 flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2.5 h-2.5 rounded-full bg-red-500 border border-black"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-yellow-400 border border-black"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-green-500 border border-black"></div>
+                                <span class="ml-1 font-mono text-xs tracking-widest truncate">WWW.ABOUT.ME</span>
+                            </div>
+                            <span class="pixel-text text-[10px] sm:text-xs text-yellow-300">👑 HUSAYN_ALI</span>
+                        </div>
+
+                        <!-- INNER CONTENT CONTAINER -->
+                        <div class="bg-blue-950 text-white p-3 sm:p-6 border-2 border-black space-y-4 relative overflow-hidden">
+                            
+                            <!-- Status Badge -->
+                            <div class="inline-flex items-center gap-2 bg-emerald-900 border border-emerald-400 text-emerald-200 px-2.5 py-1 rounded-full text-xs font-bold font-mono">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 badge-blink"></span>
+                                STATUS: Open to Opportunities
+                            </div>
+
+                            <!-- Header Profile Info -->
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                                <div class="space-y-1">
+                                    <h1 class="pixel-text text-xl sm:text-3xl text-yellow-400 font-bold tracking-tight">
+                                        HUSAYN ALI
+                                    </h1>
+                                    <p class="text-sm sm:text-lg text-cyan-300 font-mono font-bold leading-tight">
+                                        Data Analyst | Business Intelligence Engineer | MIS Analyst
+                                    </p>
+                                </div>
+                                
+                                <!-- Pixel Avatar Placeholder Box -->
+                                <div class="win-box p-1 bg-gray-200 text-black self-center sm:self-auto flex-shrink-0">
+                                    <div class="w-20 h-20 sm:w-24 sm:h-24 bg-blue-900 flex flex-col items-center justify-center text-center p-1 border border-black">
+                                        <i class="fas fa-user-astronaut text-3xl sm:text-4xl text-yellow-300 mb-0.5"></i>
+                                        <span class="pixel-text text-[8px] sm:text-[9px] text-white">HUSAYN.BMP</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contact Info Badges -->
+                            <div class="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 font-mono text-xs sm:text-sm bg-blue-900/60 p-2.5 border border-blue-700 rounded">
+                                <a href="mailto:hire-hussein@proton.me" class="flex items-center gap-2 hover:text-yellow-300 transition-colors py-1">
+                                    <i class="fas fa-envelope text-yellow-400"></i> hire-hussein@proton.me
+                                </a>
+                                <span class="hidden sm:inline text-blue-400">|</span>
+                                <a href="tel:+2001012787537" class="flex items-center gap-2 hover:text-yellow-300 transition-colors py-1">
+                                    <i class="fas fa-phone text-green-400"></i> +20 01012787537
+                                </a>
+                                <span class="hidden sm:inline text-blue-400">|</span>
+                                <span class="flex items-center gap-2 text-cyan-200 py-1">
+                                    <i class="fas fa-building text-cyan-400"></i> e& CX Solutions
+                                </span>
+                            </div>
+
+                            <!-- Bio & Tagline -->
+                            <div class="space-y-2 font-sans text-xs sm:text-base leading-relaxed text-gray-100">
+                                <p class="bg-blue-900/40 p-2.5 sm:p-3 border-l-4 border-yellow-400">
+                                    "Data Analyst and Software Engineer with 2+ years of experience in data systems, automation, and business intelligence. Skilled in Python, SQL, Power BI, data modeling, ETL, analytics automation, and reporting systems."
+                                </p>
+                                <p class="font-bold text-yellow-300 font-mono text-xs sm:text-sm pt-1">
+                                    ⚡ TAGLINE: <span class="text-white">"Turning operational data into automated insights, dashboards, and decision-ready reporting."</span>
+                                </p>
+                            </div>
+
+                            <!-- Touch-friendly Action Buttons -->
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <button onclick="showContactModal()" class="win-button flex-1 min-w-[120px] py-2.5 bg-yellow-400 hover:bg-yellow-300 text-black font-bold">
+                                    <i class="fas fa-paper-plane mr-1.5"></i> Contact
+                                </button>
+                                <button onclick="generateQRCodeModal()" class="win-button flex-1 min-w-[120px] py-2.5 bg-gray-200 hover:bg-white text-black font-bold">
+                                    <i class="fas fa-qrcode mr-1.5"></i> QR Code
+                                </button>
+                                <button onclick="openTerminalDrawer()" class="win-button w-full sm:w-auto py-2.5 bg-green-700 text-white hover:bg-green-600 font-bold">
+                                    <i class="fas fa-terminal mr-1.5"></i> CLI Mode
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SECTION: TECHNICAL SKILLS GRID -->
+            <div id="skills-section" class="win-box p-3 sm:p-4">
+                <div class="title-bar mb-3 sm:mb-4">
+                    <span class="text-xs sm:text-sm truncate"><i class="fas fa-cogs mr-1.5"></i> TECHNICAL SKILLS</span>
+                    <span class="text-[10px] sm:text-xs text-yellow-300 font-mono">14 MODULES</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 sm:gap-3">
+                    
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-amber-50">
+                        <i class="fab fa-python text-2xl sm:text-3xl text-blue-600 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">PYTHON</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Automation/ETL</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-blue-50">
+                        <i class="fas fa-database text-2xl sm:text-3xl text-blue-800 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">SQL</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Queries/Models</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-yellow-50">
+                        <i class="fas fa-chart-bar text-2xl sm:text-3xl text-yellow-600 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">POWER BI</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Dashboards</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-orange-50">
+                        <i class="fas fa-calculator text-2xl sm:text-3xl text-orange-600 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">DAX</div>
+                        <div class="text-[10px] text-gray-600 font-mono">KPI Formulas</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-green-50">
+                        <i class="fas fa-file-excel text-2xl sm:text-3xl text-green-700 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">EXCEL</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Power Query</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-purple-50">
+                        <i class="fas fa-table text-2xl sm:text-3xl text-purple-700 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">PANDAS</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Data Wrangling</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-cyan-50">
+                        <i class="fas fa-square-root-variable text-2xl sm:text-3xl text-cyan-700 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">NUMPY</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Arrays/Math</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-red-50">
+                        <i class="fas fa-brain text-2xl sm:text-3xl text-red-600 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">SK-LEARN</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Machine Learning</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-indigo-50">
+                        <i class="fas fa-stream text-2xl sm:text-3xl text-indigo-700 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">ETL</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Pipelines</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-sky-50">
+                        <i class="fas fa-code text-2xl sm:text-3xl text-sky-800 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">C++</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Systems/DSA</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-yellow-100">
+                        <i class="fab fa-js text-2xl sm:text-3xl text-yellow-700 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">JAVASCRIPT</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Web/Viz</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-gray-100">
+                        <i class="fab fa-git-alt text-2xl sm:text-3xl text-red-500 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">GIT</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Version Control</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-yellow-50">
+                        <i class="fab fa-linux text-2xl sm:text-3xl text-black mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">LINUX</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Bash/CLI</div>
+                    </div>
+
+                    <div class="win-box p-2 text-center skill-card cursor-pointer bg-teal-50">
+                        <i class="fas fa-tasks text-2xl sm:text-3xl text-teal-700 mb-1"></i>
+                        <div class="pixel-text text-[10px] sm:text-xs font-bold">MIS</div>
+                        <div class="text-[10px] text-gray-600 font-mono">Reporting</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SECTION: INTERACTIVE TIMELINE & WORKED AS -->
+            <div id="timeline-section" class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+                
+                <!-- TIMELINE (Lg: 7 Cols) -->
+                <div class="lg:col-span-7 win-box p-3 sm:p-4">
+                    <div class="title-bar mb-3 sm:mb-4">
+                        <span class="text-xs sm:text-sm truncate"><i class="fas fa-history mr-1.5"></i> CAREER & EDUCATION TIMELINE</span>
+                    </div>
+
+                    <div class="relative pl-4 sm:pl-6 border-l-4 border-blue-900 space-y-4 my-2">
+                        
+                        <!-- Timeline Item 1 -->
+                        <div class="relative">
+                            <div class="absolute -left-[23px] sm:-left-[31px] top-1 w-4 h-4 sm:w-5 sm:h-5 bg-yellow-400 border-2 border-black rounded-full"></div>
+                            <div class="win-box p-3 bg-white">
+                                <div class="flex flex-wrap justify-between items-center gap-1 border-b border-gray-300 pb-1 mb-1">
+                                    <span class="pixel-text text-[10px] sm:text-xs text-blue-900">OCT 2025 – PRESENT</span>
+                                    <span class="bg-green-200 text-green-800 text-[10px] px-1.5 py-0.5 font-bold border border-black">CURRENT</span>
+                                </div>
+                                <h3 class="font-bold text-base sm:text-lg">MIS Senior Specialist</h3>
+                                <p class="text-xs sm:text-sm text-gray-700 font-bold">e& CX Solutions</p>
+                                <p class="text-xs sm:text-sm mt-1 text-gray-800 leading-snug">
+                                    Built/maintained operational reporting systems; monitored SLA & productivity KPIs; automated management reporting workflows using SQL, Excel, Power Query, Power BI, and data modeling.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 2 -->
+                        <div class="relative">
+                            <div class="absolute -left-[23px] sm:-left-[31px] top-1 w-4 h-4 sm:w-5 sm:h-5 bg-blue-500 border-2 border-black rounded-full"></div>
+                            <div class="win-box p-3 bg-white">
+                                <div class="flex flex-wrap justify-between items-center gap-1 border-b border-gray-300 pb-1 mb-1">
+                                    <span class="pixel-text text-[10px] sm:text-xs text-blue-900">JUN 2022 – DEC 2023</span>
+                                    <span class="bg-gray-200 text-gray-800 text-[10px] px-1.5 py-0.5 font-bold border border-black">EXPERIENCE</span>
+                                </div>
+                                <h3 class="font-bold text-base sm:text-lg">Python Developer</h3>
+                                <p class="text-xs sm:text-sm text-gray-700 font-bold">Business Spike</p>
+                                <p class="text-xs sm:text-sm mt-1 text-gray-800 leading-snug">
+                                    Built automated data-processing scripts, backend ETL pipelines, SQL extraction routines, data validation, and reusable Python utilities.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 3 -->
+                        <div class="relative">
+                            <div class="absolute -left-[23px] sm:-left-[31px] top-1 w-4 h-4 sm:w-5 sm:h-5 bg-purple-500 border-2 border-black rounded-full"></div>
+                            <div class="win-box p-3 bg-white">
+                                <div class="flex flex-wrap justify-between items-center gap-1 border-b border-gray-300 pb-1 mb-1">
+                                    <span class="pixel-text text-[10px] sm:text-xs text-blue-900">GRADUATED 2023</span>
+                                    <span class="bg-purple-200 text-purple-900 text-[10px] px-1.5 py-0.5 font-bold border border-black">DEGREE</span>
+                                </div>
+                                <h3 class="font-bold text-base sm:text-lg">B.Sc. Computer Science & AI</h3>
+                                <p class="text-xs sm:text-sm text-gray-700 font-bold">Beni-Suef University</p>
+                                <p class="text-xs sm:text-sm mt-1 text-gray-800 leading-snug">
+                                    Algorithms, Data Structures, Machine Learning, Database Management Systems, and Software Engineering.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 4 -->
+                        <div class="relative">
+                            <div class="absolute -left-[23px] sm:-left-[31px] top-1 w-4 h-4 sm:w-5 sm:h-5 bg-teal-500 border-2 border-black rounded-full"></div>
+                            <div class="win-box p-3 bg-white">
+                                <div class="flex flex-wrap justify-between items-center gap-1 border-b border-gray-300 pb-1 mb-1">
+                                    <span class="pixel-text text-[10px] sm:text-xs text-blue-900">2022</span>
+                                    <span class="bg-teal-200 text-teal-900 text-[10px] px-1.5 py-0.5 font-bold border border-black">DIPLOMA</span>
+                                </div>
+                                <h3 class="font-bold text-base sm:text-lg">Data Analytics & Visualization Diploma</h3>
+                                <p class="text-xs sm:text-sm text-gray-700 font-bold">Information Technology Institute (ITI)</p>
+                                <p class="text-xs sm:text-sm mt-1 text-gray-800 leading-snug">
+                                    Practical diploma in SQL, Power BI, Python for Data Science, Data Warehousing, and Business Analytics.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- WORKED AS & AWARDS (Lg: 5 Cols) -->
+                <div class="lg:col-span-5 space-y-4 sm:space-y-6">
+                    
+                    <!-- WORKED AS BOX -->
+                    <div class="win-box p-3 sm:p-4">
+                        <div class="title-bar mb-3">
+                            <span class="text-xs sm:text-sm"><i class="fas fa-briefcase mr-1.5"></i> WORKED AS</span>
+                        </div>
+                        <div class="space-y-2 font-mono">
+                            <div class="win-box-inset p-2 flex justify-between items-center">
+                                <div>
+                                    <div class="font-bold text-xs sm:text-sm">MIS Senior Specialist</div>
+                                    <div class="text-[10px] sm:text-xs text-gray-600">e& CX Solutions</div>
+                                </div>
+                                <span class="pixel-text text-[9px] bg-blue-900 text-white px-1.5 py-0.5">PRESENT</span>
+                            </div>
+
+                            <div class="win-box-inset p-2 flex justify-between items-center">
+                                <div>
+                                    <div class="font-bold text-xs sm:text-sm">Python Developer</div>
+                                    <div class="text-[10px] sm:text-xs text-gray-600">Business Spike</div>
+                                </div>
+                                <span class="pixel-text text-[9px] bg-gray-300 text-black px-1.5 py-0.5">1.5 YRS</span>
+                            </div>
+
+                            <div class="win-box-inset p-2 flex justify-between items-center">
+                                <div>
+                                    <div class="font-bold text-xs sm:text-sm">BI & Data Analyst</div>
+                                    <div class="text-[10px] sm:text-xs text-gray-600">Freelance / Operations</div>
+                                </div>
+                                <span class="pixel-text text-[9px] bg-gray-300 text-black px-1.5 py-0.5">2+ YRS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HONORS & CERTIFICATIONS BOX -->
+                    <div class="win-box p-3 sm:p-4">
+                        <div class="title-bar mb-3 bg-yellow-700">
+                            <span class="text-xs sm:text-sm"><i class="fas fa-trophy mr-1.5"></i> HONORS & CERTS</span>
+                        </div>
+                        
+                        <div class="space-y-2 text-xs sm:text-sm">
+                            <div class="win-box-inset p-2 border-l-4 border-yellow-500">
+                                <span class="font-bold text-amber-700">🥇 1st Place</span> — GDSC Code Camp
+                            </div>
+                            <div class="win-box-inset p-2 border-l-4 border-amber-600">
+                                <span class="font-bold text-amber-800">🥉 3rd Place</span> — Coursera Data Science Competition
+                            </div>
+                            <div class="win-box-inset p-2">
+                                <i class="fas fa-certificate text-blue-600 mr-1"></i> Google Data Analytics Professional
+                            </div>
+                            <div class="win-box-inset p-2">
+                                <i class="fas fa-certificate text-red-600 mr-1"></i> Stanford Machine Learning
+                            </div>
+                            <div class="win-box-inset p-2">
+                                <i class="fas fa-certificate text-green-600 mr-1"></i> Data Analysis with Python — freeCodeCamp
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SECTION: FEATURED PROJECTS SHOWCASE -->
+            <div id="projects-section" class="win-box p-3 sm:p-4">
+                <div class="title-bar mb-3 sm:mb-4 bg-indigo-900">
+                    <span class="text-xs sm:text-sm truncate"><i class="fas fa-folder-open mr-1.5"></i> PROJECTS SHOWCASE</span>
+                    <span class="text-[10px] text-yellow-300 font-mono">4 ITEMS</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                    
+                    <!-- Project 1: Linux Lab -->
+                    <div class="win-box p-3 bg-gray-100 flex flex-col justify-between space-y-3">
+                        <div>
+                            <div class="flex justify-between items-start mb-1.5">
+                                <h4 class="pixel-text text-xs sm:text-sm font-bold text-blue-900 flex items-center gap-1.5">
+                                    <i class="fab fa-linux text-base text-black"></i> Linux Lab
+                                </h4>
+                                <span class="bg-black text-green-400 font-mono text-[9px] px-1.5 py-0.5 border border-gray-400">WEB OS SIMULATOR</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-gray-800 font-sans leading-snug">
+                                Browser-based Linux OS simulator featuring a virtual filesystem, terminal interface, process execution, and OS interactions.
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex flex-wrap gap-1">
+                                <span class="bg-blue-200 text-blue-900 text-[10px] px-1.5 py-0.5 font-bold border border-black">Python</span>
+                                <span class="bg-gray-300 text-black text-[10px] px-1.5 py-0.5 font-bold border border-black">C++</span>
+                                <span class="bg-yellow-200 text-yellow-900 text-[10px] px-1.5 py-0.5 font-bold border border-black">Linux</span>
+                            </div>
+                            <button onclick="runProjectDemo('Linux Lab')" class="win-button w-full py-2 bg-gray-300 hover:bg-gray-200 text-xs font-bold">
+                                <i class="fas fa-play text-green-700 mr-1"></i> DEMO SPEC
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: LogicFlow -->
+                    <div class="win-box p-3 bg-gray-100 flex flex-col justify-between space-y-3">
+                        <div>
+                            <div class="flex justify-between items-start mb-1.5">
+                                <h4 class="pixel-text text-xs sm:text-sm font-bold text-blue-900 flex items-center gap-1.5">
+                                    <i class="fas fa-project-diagram text-base text-purple-700"></i> LogicFlow
+                                </h4>
+                                <span class="bg-purple-900 text-white font-mono text-[9px] px-1.5 py-0.5 border border-black">KNOWLEDGE ENGINE</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-gray-800 font-sans leading-snug">
+                                Force-directed knowledge graph system for modeling logical dependencies, concepts, and automated reasoning chains.
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex flex-wrap gap-1">
+                                <span class="bg-blue-200 text-blue-900 text-[10px] px-1.5 py-0.5 font-bold border border-black">Python</span>
+                                <span class="bg-yellow-200 text-yellow-900 text-[10px] px-1.5 py-0.5 font-bold border border-black">JavaScript</span>
+                                <span class="bg-purple-200 text-purple-900 text-[10px] px-1.5 py-0.5 font-bold border border-black">Graph Viz</span>
+                            </div>
+                            <button onclick="runProjectDemo('LogicFlow')" class="win-button w-full py-2 bg-gray-300 hover:bg-gray-200 text-xs font-bold">
+                                <i class="fas fa-network-wired text-purple-700 mr-1"></i> DEMO SPEC
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: TaskFlow -->
+                    <div class="win-box p-3 bg-gray-100 flex flex-col justify-between space-y-3">
+                        <div>
+                            <div class="flex justify-between items-start mb-1.5">
+                                <h4 class="pixel-text text-xs sm:text-sm font-bold text-blue-900 flex items-center gap-1.5">
+                                    <i class="fas fa-tasks text-base text-orange-600"></i> TaskFlow
+                                </h4>
+                                <span class="bg-orange-800 text-white font-mono text-[9px] px-1.5 py-0.5 border border-black">EXECUTION FRAMEWORK</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-gray-800 font-sans leading-snug">
+                                Parallel execution framework for task orchestration, dynamic dependency handling, and workflow execution.
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex flex-wrap gap-1">
+                                <span class="bg-blue-200 text-blue-900 text-[10px] px-1.5 py-0.5 font-bold border border-black">Python</span>
+                                <span class="bg-orange-200 text-orange-900 text-[10px] px-1.5 py-0.5 font-bold border border-black">Parallel Processing</span>
+                            </div>
+                            <button onclick="runProjectDemo('TaskFlow')" class="win-button w-full py-2 bg-gray-300 hover:bg-gray-200 text-xs font-bold">
+                                <i class="fas fa-cogs text-orange-700 mr-1"></i> DEMO SPEC
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 4: BI Operations Dashboard -->
+                    <div class="win-box p-3 bg-gray-100 flex flex-col justify-between space-y-3">
+                        <div>
+                            <div class="flex justify-between items-start mb-1.5">
+                                <h4 class="pixel-text text-xs sm:text-sm font-bold text-blue-900 flex items-center gap-1.5">
+                                    <i class="fas fa-chart-line text-base text-yellow-600"></i> BI Operations
+                                </h4>
+                                <span class="bg-yellow-600 text-black font-mono text-[9px] px-1.5 py-0.5 border border-black">OPERATIONAL INTELLIGENCE</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-gray-800 font-sans leading-snug">
+                                Automated operational intelligence dashboard combining SQL, Power Query, DAX, and Power BI for KPI monitoring.
+                            </p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex flex-wrap gap-1">
+                                <span class="bg-yellow-200 text-yellow-900 text-[10px] px-1.5 py-0.5 font-bold border border-black">Power BI</span>
+                                <span class="bg-blue-200 text-blue-900 text-[10px] px-1.5 py-0.5 font-bold border border-black">SQL</span>
+                                <span class="bg-orange-200 text-orange-900 text-[10px] px-1.5 py-0.5 font-bold border border-black">DAX</span>
+                            </div>
+                            <button onclick="runProjectDemo('BI Operations Dashboard')" class="win-button w-full py-2 bg-gray-300 hover:bg-gray-200 text-xs font-bold">
+                                <i class="fas fa-chart-pie text-yellow-700 mr-1"></i> DEMO SPEC
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM STATUS BAR -->
+        <div class="bg-gray-300 border-t-2 border-white p-2 flex flex-wrap justify-between items-center text-xs font-mono select-none">
+            <div class="flex items-center gap-2">
+                <span class="win-box-inset px-2 py-0.5 flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span> SYSTEM READY
+                </span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span id="system-clock" class="win-box-inset px-2.5 py-0.5 font-bold text-blue-900">12:00:00 PM</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RETRO FIXED BOTTOM TASKBAR -->
+    <div class="fixed bottom-0 left-0 right-0 bg-gray-300 border-t-2 border-white p-1 z-50 flex justify-between items-center select-none shadow-lg">
+        <div class="flex items-center gap-1 sm:gap-2">
+            <!-- Touch Start Button -->
+            <button onclick="toggleStartMenu()" class="win-button px-2.5 py-1 flex items-center gap-1.5 font-bold bg-gray-300 hover:bg-gray-200 active:bg-gray-400">
+                <i class="fas fa-window-restore text-red-600 text-sm"></i>
+                <span class="pixel-text text-xs">Start</span>
+            </button>
+
+            <!-- Active Taskbar Item -->
+            <div id="taskbar-item" class="win-box-inset px-2 py-1 text-xs font-bold flex items-center gap-1 bg-gray-200 border-black truncate max-w-[140px] sm:max-w-none">
+                <i class="fas fa-user-circle text-blue-900"></i> <span class="truncate">Husayn Ali</span>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs font-mono px-1">
+            <button onclick="toggleSound()" class="p-1 text-black">
+                <i class="fas fa-volume-up"></i>
+            </button>
+            <span class="win-box-inset px-2 py-1" id="taskbar-clock">12:00 PM</span>
+        </div>
+    </div>
+
+    <!-- START MENU POPUP -->
+    <div id="start-menu" class="hidden fixed bottom-11 left-1 w-60 sm:w-64 win-box bg-gray-300 p-1 z-50 shadow-2xl">
+        <div class="bg-blue-900 text-white p-2 flex items-center gap-2 border-b border-black mb-1">
+            <i class="fas fa-desktop text-yellow-300"></i>
+            <span class="pixel-text text-xs">Windows '95</span>
+        </div>
+        <div class="space-y-1 font-bold text-xs sm:text-sm">
+            <button onclick="scrollToSection('about-section'); toggleStartMenu()" class="w-full text-left p-2 hover:bg-blue-900 hover:text-white flex items-center gap-2.5">
+                <i class="fas fa-user text-blue-700 w-4"></i> About Husayn
+            </button>
+            <button onclick="scrollToSection('skills-section'); toggleStartMenu()" class="w-full text-left p-2 hover:bg-blue-900 hover:text-white flex items-center gap-2.5">
+                <i class="fas fa-cogs text-amber-600 w-4"></i> Skills Directory
+            </button>
+            <button onclick="scrollToSection('projects-section'); toggleStartMenu()" class="w-full text-left p-2 hover:bg-blue-900 hover:text-white flex items-center gap-2.5">
+                <i class="fas fa-folder text-yellow-600 w-4"></i> Projects Folder
+            </button>
+            <button onclick="showContactModal(); toggleStartMenu()" class="w-full text-left p-2 hover:bg-blue-900 hover:text-white flex items-center gap-2.5">
+                <i class="fas fa-envelope text-green-700 w-4"></i> Send Message
+            </button>
+            <hr class="border-gray-400 my-1">
+            <button onclick="showNotification('System Shutdown', 'System cannot shutdown while Husayn is open for opportunities!')" class="w-full text-left p-2 hover:bg-red-700 hover:text-white flex items-center gap-2.5">
+                <i class="fas fa-power-off text-red-600 w-4"></i> Shut Down...
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL DIALOG CONTAINER -->
+    <div id="modal-overlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3">
+        <div id="modal-box" class="win-box max-w-sm sm:max-w-md w-full p-1 bg-gray-300">
+            <div class="title-bar" id="modal-title">
+                <span>SYSTEM MESSAGE</span>
+                <button onclick="closeModal()" class="win-button w-7 h-7 p-0 bg-gray-300 hover:bg-red-600 text-black">✕</button>
+            </div>
+            <div id="modal-body" class="p-3 sm:p-4 bg-white m-1 border border-black font-sans text-xs sm:text-sm">
+                Modal content.
+            </div>
+            <div class="p-2 flex justify-end gap-2 bg-gray-300">
+                <button onclick="closeModal()" class="win-button px-4 py-1 bg-gray-300 hover:bg-gray-200">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CLI TERMINAL DRAWER -->
+    <div id="terminal-drawer" class="hidden fixed inset-x-0 bottom-10 bg-black text-green-400 font-mono p-3 border-t-4 border-yellow-400 z-40 max-h-72 overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-green-800 pb-2 mb-2">
+            <span class="pixel-text text-[10px] sm:text-xs text-yellow-300">> HUSAYN_OS CLI TERMINAL</span>
+            <button onclick="toggleTerminal()" class="text-red-400 hover:text-white font-bold text-xs p-1">✕ CLOSE</button>
+        </div>
+        <div id="terminal-output" class="text-xs space-y-1 mb-2">
+            <div>Type <span class="text-yellow-300">'help'</span> to see commands.</div>
+        </div>
+        <div class="flex items-center gap-1.5">
+            <span class="text-yellow-300 font-bold text-xs">$</span>
+            <input type="text" id="terminal-input" class="bg-transparent border-none outline-none text-green-400 font-mono flex-1 text-xs" autofocus placeholder="skills, contact, bio, clear">
+        </div>
+    </div>
+
+    <script>
+        // SOUND GENERATOR USING WEB AUDIO API
+        let soundEnabled = true;
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function playRetroSound(type) {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) audioCtx = new AudioContext();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.05);
+                } else if (type === 'launch') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.12);
+                    gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.12);
+                }
+            } catch (e) {
+                console.log('Audio Context Error', e);
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.getElementById('sound-status').innerText = soundEnabled ? 'ON' : 'OFF';
+            document.getElementById('sound-status').className = soundEnabled ? 'text-green-700 font-bold' : 'text-red-600 font-bold';
+            playRetroSound('click');
+        }
+
+        // CLOCK UPDATER
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const timeStrShort = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('system-clock').innerText = timeStr;
+            document.getElementById('taskbar-clock').innerText = timeStrShort;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // WINDOW CONTROLS
+        let isMaximized = false;
+        function toggleMaximize() {
+            const win = document.getElementById('main-window');
+            if (!isMaximized) {
+                win.classList.remove('max-w-6xl', 'my-1', 'sm:my-4');
+                win.classList.add('w-full', 'm-0');
+            } else {
+                win.classList.add('max-w-6xl', 'my-1', 'sm:my-4');
+                win.classList.remove('w-full', 'm-0');
+            }
+            isMaximized = !isMaximized;
+        }
+
+        let isMinimized = false;
+        function toggleMinimize() {
+            const body = document.getElementById('window-body');
+            if (!isMinimized) {
+                body.style.display = 'none';
+            } else {
+                body.style.display = 'block';
+            }
+            isMinimized = !isMinimized;
+        }
+
+        // START MENU TOGGLE
+        function toggleStartMenu() {
+            playRetroSound('click');
+            const menu = document.getElementById('start-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // SCROLL SMOOTHLY TO SECTIONS
+        function scrollToSection(id) {
+            playRetroSound('click');
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // MODAL SYSTEM
+        function showNotification(title, message) {
+            playRetroSound('launch');
+            document.getElementById('modal-title').innerHTML = `<span>${title}</span>`;
+            document.getElementById('modal-body').innerHTML = `<p>${message}</p>`;
+            document.getElementById('modal-overlay').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            playRetroSound('click');
+            document.getElementById('modal-overlay').classList.add('hidden');
+        }
+
+        function showContactModal() {
+            playRetroSound('launch');
+            document.getElementById('modal-title').innerHTML = `<span>SEND DIRECT MESSAGE</span>`;
+            document.getElementById('modal-body').innerHTML = `
+                <form onsubmit="handleContactSubmit(event)" class="space-y-2.5">
+                    <div>
+                        <label class="block font-bold mb-1">Your Name / Company:</label>
+                        <input type="text" required class="w-full win-box-inset p-1.5 text-xs sm:text-sm outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-1">Your Email:</label>
+                        <input type="email" required class="w-full win-box-inset p-1.5 text-xs sm:text-sm outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-1">Message:</label>
+                        <textarea required rows="3" class="w-full win-box-inset p-1.5 text-xs sm:text-sm outline-none"></textarea>
+                    </div>
+                    <button type="submit" class="win-button w-full py-2 bg-yellow-400 hover:bg-yellow-300 font-bold">SEND MESSAGE</button>
+                </form>
+            `;
+            document.getElementById('modal-overlay').classList.remove('hidden');
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            closeModal();
+            showNotification('Message Transmitted', 'Thank you! Your message has been logged. Husayn will reply shortly via hire-hussein@proton.me.');
+        }
+
+        function generateQRCodeModal() {
+            playRetroSound('launch');
+            document.getElementById('modal-title').innerHTML = `<span>MOBILE QUICK CONNECT QR</span>`;
+            document.getElementById('modal-body').innerHTML = `
+                <div class="text-center space-y-2">
+                    <p class="font-bold">Scan to Email Husayn Ali Directly:</p>
+                    <div class="flex justify-center p-2 bg-white inline-block border-2 border-black mx-auto">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=mailto:hire-hussein@proton.me" alt="Husayn Ali Contact QR" class="w-32 h-32 sm:w-36 sm:h-36">
+                    </div>
+                    <p class="text-[10px] sm:text-xs text-gray-600 font-mono">Email: hire-hussein@proton.me<br>Phone: +20 01012787537</p>
+                </div>
+            `;
+            document.getElementById('modal-overlay').classList.remove('hidden');
+        }
+
+        function runProjectDemo(projectName) {
+            playRetroSound('launch');
+            showNotification(`PROJECT DEMO: ${projectName}`, `Launching specification container for <b>${projectName}</b>... All repositories and architecture specs are available upon request.`);
+        }
+
+        // TERMINAL DRAWER CONTROLLER
+        function openTerminalDrawer() {
+            playRetroSound('launch');
+            document.getElementById('terminal-drawer').classList.remove('hidden');
+            document.getElementById('terminal-input').focus();
+        }
+
+        function toggleTerminal() {
+            playRetroSound('click');
+            document.getElementById('terminal-drawer').classList.toggle('hidden');
+        }
+
+        document.getElementById('terminal-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const input = this.value.trim().toLowerCase();
+                const output = document.getElementById('terminal-output');
+                
+                let response = '';
+                if (input === 'help') {
+                    response = "Commands: <span class='text-yellow-300'>skills</span>, <span class='text-yellow-300'>bio</span>, <span class='text-yellow-300'>contact</span>, <span class='text-yellow-300'>clear</span>";
+                } else if (input === 'skills') {
+                    response = "Skills: Python, SQL, Power BI, DAX, Excel, Pandas, NumPy, Scikit-learn, ETL, C++, JavaScript, Git, Linux";
+                } else if (input === 'bio') {
+                    response = "Husayn Ali — MIS Senior Specialist & Data Analyst in Cairo, Egypt. 2+ yrs experience in BI automation.";
+                } else if (input === 'contact') {
+                    response = "Email: hire-hussein@proton.me | Phone: +20 01012787537 | GitHub: github.com/husaynali";
+                } else if (input === 'clear') {
+                    output.innerHTML = '';
+                    this.value = '';
+                    return;
+                } else {
+                    response = `Unknown command: '${input}'. Type 'help' for available commands.`;
+                }
+
+                output.innerHTML += `<div><span class='text-yellow-300'>$</span> ${this.value}</div>`;
+                output.innerHTML += `<div class='text-gray-300 pl-3'>${response}</div>`;
+                this.value = '';
+                document.getElementById('terminal-drawer').scrollTop = document.getElementById('terminal-drawer').scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
